@@ -14,23 +14,6 @@ pipeline {
         sh './bin/build'
       }
     }
-
-    #stage('Test') {
-    #  steps {
-    #    sh './test/test postgres'
-    #    sh './test/test mysql'
-    #  }
-    #}
-
-    #stage('Publish Docker image to registry') {
-    #  when {
-    #   branch 'master'
-    #  }
-
-    #  steps {
-    #    sh './bin/publish'
-    #  }
-    #}
   }
 
   post {
