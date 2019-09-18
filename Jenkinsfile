@@ -2,18 +2,19 @@
 
 pipeline {
 
-  agent any
+  agent {
+    docker {
+      reuseNode true 
+      image 'maven:3-alpine' 
+    }
+  }
 
   options {
     timestamps()
-    buildDiscarder(logRotator(numToKeepStr: '30'))
   }
 
   stages {
     stage('Sonarcloud code analysis') {
-      agent {
-         docker { image 'maven:3-alpine' }
-      }
       steps {
          echo 'Checking maven version'
          sh 'mvn --version'
@@ -29,6 +30,15 @@ pipeline {
       steps {
         echo 'Running build'
       }
+    }
+  }
+
+  post {
+    failure {
+      // notify users when the Pipeline fails
+      mail to: 'amol.shinde@aciworldwide.com',
+          subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+          body: "Something is wrong with ${env.BUILD_URL}"
     }
   }
 
