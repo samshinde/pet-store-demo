@@ -3,7 +3,7 @@
 pipeline {
 
   agent { 
-     docker { image 'ubuntu:18.04' }
+    label 'docker-slaves'
   }
 
   options {
