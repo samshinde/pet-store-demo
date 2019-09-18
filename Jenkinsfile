@@ -1,7 +1,10 @@
 #!/usr/bin/env groovy
 
 pipeline {
-  agent { label 'executor-v2' }
+
+  agent { 
+     docker { image 'ubuntu:18.04' }
+  }
 
   options {
     timestamps()
