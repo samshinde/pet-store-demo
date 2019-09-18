@@ -13,9 +13,12 @@ pipeline {
 
   stages {
     stage('Sonarcloud code analysis') {
+      agent {
+         docker { image 'maven:3-alpine' }
+      }
       steps {
-        echo 'Running code analysis'
-        mvn sonar:sonar -Dsonar.projectKey=pet-store -Dsonar.organization=amol-example -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=684fc165294d8982b9a4837e9c2d24ef00b41e88
+         echo 'Checking maven version'
+         sh 'mvn --version'
       }
     }
     stage('Run unit tests using Junit') {
