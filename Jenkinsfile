@@ -12,9 +12,19 @@ pipeline {
   }
 
   stages {
-    stage('Build Docker image') {
+    stage('Sonarcloud code analysis') {
       steps {
-        sh './bin/build'
+        echo 'Running code analysis'
+      }
+    }
+    stage('Run unit tests using Junit') {
+      steps {
+        echo 'Running unit tests'
+      }
+    }
+    stage('Build using maven') {
+      steps {
+        echo 'Running build'
       }
     }
   }
