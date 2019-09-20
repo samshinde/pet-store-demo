@@ -18,7 +18,7 @@ pipeline {
       steps {
         echo 'Checking maven version'
         sh 'mvn clean install'
-        sh 'mvn sonar:sonar -Dsonar.projectKey=pet-store -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=amol-example -Dsonar.login=684fc165294d8982b9a4837e9c2d24ef00b41e88'
+        sh 'mvn sonar:sonar -Dsonar.projectKey=pet-store -Dsonar.host.url=http://localhost:9000 -Dsonar.login=decd11e66c1e4c7517cfc66673a7838dcc7a4df3'
       }
     }
     stage('Run unit tests using Junit') {
