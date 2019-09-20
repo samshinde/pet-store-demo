@@ -35,7 +35,7 @@ pipeline {
     stage('Up the built docker images and run integration tests.') {
       steps {
         echo 'Running integration tests'
-        lsh './test/test postgres'
+        sh './test/test postgres'
         sh './test/test mysql'
       }
     }
