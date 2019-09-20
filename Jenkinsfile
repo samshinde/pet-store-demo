@@ -26,9 +26,17 @@ pipeline {
         echo 'Running unit tests'
       }
     }
-    stage('Build using maven') {
+    stage('Build docker images using docker coompose inside.') {
       steps {
         echo 'Running build'
+        sh './bin/build'
+      }
+    }
+    stage('Up the built docker images and run integration tests.') {
+      steps {
+        echo 'Running integration tests'
+        sh './test/test postgres'
+        sh './test/test mysql'
       }
     }
   }
