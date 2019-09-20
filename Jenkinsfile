@@ -16,9 +16,9 @@ pipeline {
         }
       }
       steps {
-         echo 'Checking maven version'
-         sh 'mvn clean install'
-         sh 'mvn sonar:sonar -Dsonar.projectKey=pet-store -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=amol-example -Dsonar.login=684fc165294d8982b9a4837e9c2d24ef00b41e88'
+        echo 'Checking maven version'
+        sh 'mvn clean install'
+        sh 'mvn sonar:sonar -Dsonar.projectKey=pet-store -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=amol-example -Dsonar.login=684fc165294d8982b9a4837e9c2d24ef00b41e88'
       }
     }
     stage('Run unit tests using Junit') {
@@ -35,13 +35,19 @@ pipeline {
     stage('Up the built docker images and run integration tests.') {
       steps {
         echo 'Running integration tests'
-        sh './test/test postgres'
+        lsh './test/test postgres'
         sh './test/test mysql'
       }
     }
   }
 
   post {
+    success {
+      // notify users when the Pipeline fails
+      mail to: 'amol.shinde@aciworldwide.com',
+          subject: "Success Pipeline: ${currentBuild.fullDisplayName}",
+          body: "All things went well ${env.BUILD_URL}"
+    }
     failure {
       // notify users when the Pipeline fails
       mail to: 'amol.shinde@aciworldwide.com',
