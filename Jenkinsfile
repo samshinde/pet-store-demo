@@ -2,12 +2,7 @@
 
 pipeline {
 
-  agent {
-    docker {
-      reuseNode true 
-      image 'maven:3-alpine' 
-    }
-  }
+  agent any
 
   options {
     timestamps()
@@ -15,6 +10,11 @@ pipeline {
 
   stages {
     stage('Sonarcloud code analysis') {
+      agent {
+        docker { 
+          image 'maven:3-alpine' 
+        }
+      }
       steps {
          echo 'Checking maven version'
          sh 'mvn clean install'
