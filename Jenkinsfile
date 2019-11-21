@@ -42,6 +42,10 @@ pipeline {
   }
 
   post {
+    
+    always {
+      jacoco()
+    }
     success {
       // notify users when the Pipeline fails
       mail to: 'amol.shinde@aciworldwide.com',
